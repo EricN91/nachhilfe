@@ -1,0 +1,13 @@
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl">Nachhilfe KWM</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal p-0">
+      <li><a routerLink="/">Kursübersicht</a></li>
+      <li *ngIf="auth.isLoggedIn()"><a routerLink="/create">Angebot erstellen</a></li>
+      <li *ngIf="auth.isLoggedOut()"><a routerLink="/login">Login</a></li>
+      <li *ngIf="auth.isLoggedIn()"><a routerLink="/login">Logout</a></li>
+    </ul>
+  </div>
+</div>

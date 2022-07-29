@@ -1,0 +1,68 @@
+<div *ngIf="!isLoggedIn()">
+  <h1 class="text-violet-500 font-bold mt-10 ml-5 text-xl">Login</h1>
+  <form class="ui large form" [formGroup]="loginForm"
+        (ngSubmit)="login()">
+    <div class="form-control w-full max-w-xs mt-3 ml-5">
+      <label class="label">
+        <span class="label-text">Deine Email</span>
+      </label>
+      <input type="email" id="email" formControlName="email" placeholder="Email"
+             class="input input-bordered dark:bg-white focus:bg-transparent w-full max-w-xs"/>
+      <label class="label">
+        <span *ngIf="loginForm.get('email')?.invalid &&
+(loginForm.get('email')?.dirty ||
+loginForm.get('email')?.touched) &&
+loginForm.get('email')?.hasError('required')" class="label-text-alt text-red-700 font-bold ">Email ist verpflichtend</span>
+      </label>
+    </div>
+
+    <div class="form-control w-full max-w-xs mt-3 ml-5">
+      <label class="label">
+        <span class="label-text">Dein Passwort</span>
+      </label>
+      <input type="password" id="password" formControlName="password" placeholder="Passwort"
+             class="input input-bordered dark:bg-white focus:bg-transparent w-full max-w-xs"/>
+      <label class="label">
+        <span *ngIf="loginForm.get('password')?.invalid &&
+(loginForm.get('password')?.dirty ||
+loginForm.get('password')?.touched) &&
+loginForm.get('password')?.hasError('required')" class="label-text-alt text-red-700 font-bold ">Passwort ist verpflichtend</span>
+      </label>
+    </div>
+    <!--<div class="field">
+      <label>E-Mail</label>
+      <input type="email" id="email" formControlName="email">
+      <div *ngIf="loginForm.get('email')?.invalid &&
+(loginForm.get('email')?.dirty ||
+loginForm.get('email')?.touched) &&
+loginForm.get('email')?.hasError('required')" class="ui negative
+message">
+        Email ist verpflichtend
+      </div>
+      <div *ngIf="loginForm.get('email')?.invalid &&
+(loginForm.get('email')?.dirty ||
+loginForm.get('email')?.touched) &&
+loginForm.get('email')?.hasError('email')" class="ui negative
+message">
+        E-Mail Format überprüfen
+      </div>
+    </div>-->
+    <!--<div class="field">
+      <label>Passwort</label>
+      <input type="password" formControlName="password">
+      <div *ngIf="loginForm.get('password')?.invalid &&
+(loginForm.get('password')?.dirty ||
+loginForm.get('password')?.touched)" class="ui negative message">
+        Passwort ist verpflichtend
+      </div>
+    </div>-->
+    <button type="submit" class="ui button btn btn-primary bg-green-700 mt-3 ml-5 disabled:text-purple-900 disabled:bg-purple-400"
+            [disabled]="loginForm.invalid">Login
+    </button>
+  </form>
+</div>
+<div *ngIf="isLoggedIn()">
+  <button type="button" class="ui button btn btn-primary bg-red-600 mt-3 ml-5"
+          (click)="logout()">Logout
+  </button>
+</div>

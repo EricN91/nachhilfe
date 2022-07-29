@@ -1,0 +1,12 @@
+<h1>{{offer.name}}</h1>
+<p>Angeboten von: {{user.name}}</p>
+<p>{{offer.description}}</p>
+<div *ngFor="let appointment of appointments" class="card card-compact w-96 bg-base-100 shadow-xl">
+  <div class="card-body ">
+    <p>{{appointment.date_time}}</p>
+    <div class="card-actions justify-end">
+      <!--Routerlink zu den Offers -->
+      <a class="btn btn-primary" *ngIf="isLoggedIn()">Jetzt buchen</a>
+    </div>
+  </div>
+</div>
