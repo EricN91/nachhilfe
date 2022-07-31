@@ -1,12 +1,64 @@
-<h1>{{offer.name}}</h1>
-<p>Angeboten von: {{user.name}}</p>
-<p>{{offer.description}}</p>
-<div *ngFor="let appointment of appointments" class="card card-compact w-96 bg-base-100 shadow-xl">
-  <div class="card-body ">
-    <p>{{appointment.date_time}}</p>
-    <div class="card-actions justify-end">
-      <!--Routerlink zu den Offers -->
-      <a class="btn btn-primary" *ngIf="isLoggedIn()">Jetzt buchen</a>
+<div class="mx-6">
+  <div class="text-center mb-5">
+    <h1 class="text-2xl font-semibold">{{offer.name}}</h1>
+    <p>{{offer.description}}</p>
+    <br>
+    <p>Angeboten von: {{user.name}}</p>
+    <p>Kontakt: <a [href]="'mailto:' + user.email">{{user.email}}</a></p>
+
+  </div>
+
+  <div>
+    <div *ngFor="let appointment of appointments" class="mb-3">
+      <div class="card card-compact w-96 bg-base-100 shadow-xl" *ngIf="!appointment.accepted">
+        <div class="card-body ">
+          <p>{{appointment.date_time | date:'longDate'}} - {{appointment.date_time | date:'shortTime'}} Uhr</p>
+          <div class="card-actions justify-end">
+            <!--Routerlink zu den Offers -->
+            <a (click)="bookAppointment(appointment)" class="btn btn-primary"
+               *ngIf="isLoggedIn()  && !auth.isTutor() && offer.users_id != auth.getCurrentUserId()">Jetzt buchen</a>
+            <a (click)="deleteAppointment(appointment.id)" class="btn btn-error"
+               *ngIf="isLoggedIn() && auth.isTutor() && offer.users_id == auth.getCurrentUserId()">Termin löschen</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <div *ngIf="!auth.isTutor()" tabindex="0" class="collapse collapse-open border border-base-300 bg-base-100 rounded-box">
+    <div class="collapse-title text-xl font-medium">
+      Kein passender Termin dabei?
+    </div>
+    <div class="collapse-content">
+      <form class="ui large form" [formGroup]="commentForm" (ngSubmit)="submitComment()">
+        <input type="hidden" formControlName="id">
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Datumsvorschlag</span>
+          </label>
+          <input required type="datetime-local" class="input input-bordered w-full max-w-xs"
+                 formControlName="date_time">
+        </div>
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Nachricht an {{user.name}}</span>
+          </label>
+          <textarea required formControlName="textarea" class="textarea textarea-bordered h-24"
+                    placeholder="Beschreibung"></textarea>
+        </div>
+        <div class="px-4 py-3 text-right sm:px-6">
+          <button type="submit" [disabled]="commentForm.invalid"
+                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Absenden
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <a routerLink="./edit" class="btn btn-warning mr-4"
+     *ngIf="isLoggedIn() && auth.isTutor() && offer.users_id == auth.getCurrentUserId()">bearbeiten</a>
+  <a (click)="deleteOffer(offer.id)" class="btn btn-error"
+     *ngIf="isLoggedIn() && auth.isTutor() && offer.users_id == auth.getCurrentUserId()">Angebot löschen</a>
 </div>
+
+

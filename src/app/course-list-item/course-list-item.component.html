@@ -1,6 +1,6 @@
-<div class="card card-compact w-96 bg-base-100 shadow-xl " *ngIf="course">
-  <figure><img src="{{course.photo}}" alt="{{course.name}}" /></figure>
-  <div class="card-body">
+<div class="card card-compact shadow-xl md:container md:mx-auto h-96 mt-8" *ngIf="course">
+  <figure><img src="{{course.photo}}" class="max-w-xs" alt="{{course.name}}" /></figure>
+  <div class="card-body" >
     <h2 class="card-title">{{course.name}}</h2>
     <p>{{course.description}}</p>
     <div class="card-actions justify-end">

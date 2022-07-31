@@ -112,6 +112,8 @@ export class FormComponent implements OnInit {
 
 
     if (this.isUpdating) {
+      console.log("is updating");
+      console.log(offer);
       this.os.update(offer).subscribe(res => {
         this.router.navigate(["../"], {relativeTo: this.route});
       })

@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit {
   appointments: Appointment[] = [];
   offer_id: number = 0;
 
-  constructor(private us: UserService, private os: OfferService, private as: AppointmentService, private route: ActivatedRoute, private auth : AuthenticationService) {
+  constructor(private us: UserService, private os: OfferService, private cs: CommentService, private as: AppointmentService, private route: ActivatedRoute, public auth: AuthenticationService, private toastr: ToastrService, private router: Router, private fb: FormBuilder) {
     this.offer_id = Number(route.snapshot.params['offer_id']);
   }
 

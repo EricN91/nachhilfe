@@ -2,12 +2,14 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
 import {Appointment} from "./appointment";
 import {Injectable} from "@angular/core";
+import {Offer} from "./offer";
 
 //Verbindungen zur API
 
 @Injectable()
 export class AppointmentService {
   private api = 'http://nachhilfe22.s1810456021.student.kwmhgb.at/api';
+  //private api = 'http://test2.s1810456021.student.kwmhgb.at/api';
 
   constructor(private http: HttpClient) {
   }
@@ -31,6 +33,12 @@ export class AppointmentService {
     return this.http.delete<Appointment>(`${this.api}/appointments/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
+
+  update(appointment: Appointment): Observable<Appointment> {
+    return this.http.put<Appointment>(`${this.api}/appointments/${appointment.id}`, appointment)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
 
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);

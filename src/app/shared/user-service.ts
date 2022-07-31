@@ -6,6 +6,7 @@ import {User} from "./user";
 @Injectable()
 export class UserService {
   private api = 'http://nachhilfe22.s1810456021.student.kwmhgb.at/api';
+  //private api = 'http://test2.s1810456021.student.kwmhgb.at/api';
 
   constructor(private http: HttpClient) {
   }

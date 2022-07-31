@@ -7,6 +7,7 @@ import {catchError, Observable, retry, throwError} from "rxjs";
 export class CommentService {
 
 private api = 'http://nachhilfe22.s1810456021.student.kwmhgb.at/api';
+  //private api = 'http://test2.s1810456021.student.kwmhgb.at/api';
 
   constructor(private http: HttpClient) {
   }
@@ -23,6 +24,11 @@ private api = 'http://nachhilfe22.s1810456021.student.kwmhgb.at/api';
 
   delete(id: number): Observable<Comment> {
     return this.http.delete<Comment>(`${this.api}/comments/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  create(comment: Comment): Observable<Comment>{
+    return this.http.post<Comment>(`${this.api}/comments`, comment)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

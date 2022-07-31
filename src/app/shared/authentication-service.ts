@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import {Injectable, resolveForwardRef} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
 import jwt_decode from "jwt-decode";
 
 interface Token {
@@ -10,8 +10,8 @@ interface Token {
 }
 @Injectable()
 export class AuthenticationService {
-  private api: string =
-    "http://nachhilfe22.s1810456021.student.kwmhgb.at/api/auth";
+  private api: string ="http://nachhilfe22.s1810456021.student.kwmhgb.at/api/auth";
+  //private api: string = 'http://test2.s1810456021.student.kwmhgb.at/api/auth';
 
   constructor(private http: HttpClient) {
   }
@@ -64,5 +64,9 @@ export class AuthenticationService {
 
   isLoggedOut() {
     return !this.isLoggedIn();
+  }
+
+  public isTutor() {
+    return Number(sessionStorage.getItem('userRole')) == 0;
   }
 }

@@ -6,6 +6,7 @@ import {Offer} from "./offer";
 @Injectable()
 export class OfferService {
   private api = 'http://nachhilfe22.s1810456021.student.kwmhgb.at/api';
+  //private api = 'http://test2.s1810456021.student.kwmhgb.at/api';
 
   constructor(private http: HttpClient) {
   }

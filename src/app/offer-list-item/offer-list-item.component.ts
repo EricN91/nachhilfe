@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Offer} from "../shared/offer";
+import {CourseService} from "../shared/course-service";
 
 @Component({
   selector: 'div.app-offer-list-item',

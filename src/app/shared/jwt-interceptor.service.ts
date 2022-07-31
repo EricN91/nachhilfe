@@ -16,7 +16,6 @@ export class JwtInterceptorService
     Observable<HttpEvent<any>> {
     return next.handle(request).pipe(tap((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
-// do stuff with response if you want
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
