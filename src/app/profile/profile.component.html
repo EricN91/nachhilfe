@@ -1,0 +1,98 @@
+<div class="mx-6">
+
+  <div class="md:grid md:grid-cols-2 gap-4">
+
+    <div id="comments">
+      <h1 class="text-2xl font-semibold mt-4 mb-3">Kommentare</h1>
+      <div *ngFor="let comment of comments" class="mb-3">
+        <div class="card w-96 bg-base-100 shadow-xl"
+             *ngIf="comment.tutors_id == auth.getCurrentUserId() || comment.students_id == auth.getCurrentUserId()">
+          <div class="card-body">
+            <h2 class="card-title">{{getCourse(getOffer(comment.offers_id).courses_id).name}}
+              - {{getOffer(comment.offers_id).name}}</h2>
+            <p class="italic" *ngIf="!auth.isTutor()">an {{getUser(comment.tutors_id).name}}</p>
+            <p class="italic" *ngIf="auth.isTutor()">von {{getUser(comment.students_id).name}}</p>
+            <p>{{comment.textarea}}</p>
+            <p>{{comment.date_time}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="appointments">
+      <h2 class="text-2xl font-semibold mt-4 mb-3">Aktuelle Termine</h2>
+      <div *ngFor="let appointment of appointments" class="mb-3">
+        <div class="card card-compact w-96 bg-base-100 shadow-xl"
+             *ngIf="appointment.tutors_id == auth.getCurrentUserId() || appointment.students_id == auth.getCurrentUserId()">
+          <figure><img *ngIf="!getOffer(appointment.offers_id).photo" class="relative"
+                       src="{{getCourse(getOffer(appointment.offers_id).courses_id).photo}}"
+                       alt="{{getCourse(getOffer(appointment.offers_id).courses_id).name}}"/>
+            <img *ngIf="getOffer(appointment.offers_id).photo" class="relative"
+                 src="{{getOffer(appointment.offers_id).photo}}" alt="{{getOffer(appointment.offers_id).name}}"/>
+
+          <div *ngIf="!auth.isTutor()" class="avatar">
+            <div class="w-24 rounded-full">
+              <img src="https://placeimg.com/192/192/people"/>
+            </div>
+          </div>
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">{{getCourse(getOffer(appointment.offers_id).courses_id).name}}
+              - {{getOffer(appointment.offers_id).name}}</h2>
+            <p>{{appointment.date_time}}</p>
+            <p>{{getOffer(appointment.offers_id).description}}</p>
+            <p *ngIf="!appointment.accepted && auth.isTutor()" class="text-green-500"> verfügbar</p>
+            <p *ngIf="appointment.accepted && auth.isTutor()" class="text-red-500"> gebucht</p>
+            <p class="italic" *ngIf="!auth.isTutor()">
+              Tutor {{getUser(getOffer(appointment.offers_id).users_id).name}}</p>
+            <p class="italic" *ngIf="auth.isTutor() && appointment.accepted">gebucht
+              von {{getUser(appointment.students_id).name}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<hr>
+  <h1 class="text-2xl font-semibold">Kommentare</h1>
+  <div *ngFor="let comment of comments" class="mb-3">
+    <div class="card w-96 bg-base-100 shadow-xl"
+         *ngIf="comment.tutors_id == auth.getCurrentUserId() || comment.students_id == auth.getCurrentUserId()">
+      <div class="card-body">
+        <h2 class="card-title">{{getCourse(getOffer(comment.offers_id).courses_id).name}}
+          - {{getOffer(comment.offers_id).name}}</h2>
+        <p class="italic" *ngIf="!auth.isTutor()">an {{getUser(comment.tutors_id).name}}</p>
+        <p class="italic" *ngIf="auth.isTutor()">von {{getUser(comment.students_id).name}}</p>
+        <p>{{comment.textarea}}</p>
+        <p>{{comment.date_time}}</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-8">Aktuelle Termine</h2>
+  <div *ngFor="let appointment of appointments" class="mt-2">
+    <div class="card card-compact w-96 bg-base-100 shadow-xl"
+         *ngIf="appointment.tutors_id == auth.getCurrentUserId() || appointment.students_id == auth.getCurrentUserId()">
+      <figure><img class="relative" src="{{getOffer(appointment.offers_id).photo}}"
+                   alt="{{getOffer(appointment.offers_id).name}}"/></figure>
+      <div *ngIf="!auth.isTutor()" class="avatar">
+        <div class="w-24 rounded-full">
+          <img src="https://placeimg.com/192/192/people"/>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-title">{{getCourse(getOffer(appointment.offers_id).courses_id).name}}
+          - {{getOffer(appointment.offers_id).name}}</h2>
+        <p>{{appointment.date_time}}</p>
+        <p>{{getOffer(appointment.offers_id).description}}</p>
+        <p *ngIf="!appointment.accepted && auth.isTutor()" class="text-green-500"> verfügbar</p>
+        <p *ngIf="appointment.accepted && auth.isTutor()" class="text-red-500"> gebucht</p>
+        <p class="italic" *ngIf="!auth.isTutor()">Tutor {{getUser(getOffer(appointment.offers_id).users_id).name}}</p>
+        <p class="italic" *ngIf="auth.isTutor() && appointment.accepted">gebucht
+          von {{getUser(appointment.students_id).name}}</p>
+      </div>
+    </div>
+  </div>-->
+</div>
+
+
